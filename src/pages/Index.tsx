@@ -304,7 +304,7 @@ const Index = () => {
           <div className="flex items-center gap-8 text-foreground/60">
             <a href="https://www.youtube.com/@HilmiOlgun05" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:text-foreground transition-colors"><Youtube className="w-5 h-5" /></a>
             <a href="https://www.tiktok.com/@hilmi_olgun" target="_blank" rel="noreferrer" aria-label="TikTok" className="hover:text-foreground transition-colors"><TikTokIcon className="w-5 h-5" /></a>
-            <a href="https://discord.gg/c5xtWaCy7e" target="_blank" rel="noreferrer" aria-label="Discord" className="hover:text-foreground transition-colors"><DiscordIcon className="w-5 h-5" /></a>
+            <a href="https://discord.gg/psXQtSyXR6" target="_blank" rel="noreferrer" aria-label="Discord" className="hover:text-foreground transition-colors"><DiscordIcon className="w-5 h-5" /></a>
           </div>
           <div className="flex items-center gap-4 text-sm text-muted-foreground italic">
             <span>© 2026 Hilmi Olgun. All rights reserved.</span>
