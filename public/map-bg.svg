@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <!-- Soft warm ink color for everything on the map -->
+  <g stroke="#cdb997" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+
+    <!-- ===== LATITUDE / LONGITUDE GRID (very faint) ===== -->
+    <g opacity="0.22" stroke-width="0.4">
+      <path d="M0 100 H1200 M0 200 H1200 M0 300 H1200 M0 400 H1200 M0 500 H1200 M0 600 H1200 M0 700 H1200"/>
+      <path d="M100 0 V800 M250 0 V800 M400 0 V800 M550 0 V800 M700 0 V800 M850 0 V800 M1000 0 V800 M1150 0 V800"/>
+    </g>
+
+    <!-- Equator + meridian — slightly bolder dashed -->
+    <g opacity="0.35" stroke-width="0.6" stroke-dasharray="6 8">
+      <path d="M0 400 H1200"/>
+      <path d="M600 0 V800"/>
+    </g>
+
+    <!-- ===== COMPASS ROSE (top-right) ===== -->
+    <g transform="translate(1060 110)" opacity="0.55">
+      <circle r="42" stroke-width="0.6"/>
+      <circle r="32" stroke-width="0.4" stroke-dasharray="2 4"/>
+      <circle r="3" fill="#cdb997"/>
+      <path d="M0 -42 L4 0 L0 42 L-4 0 Z" fill="#cdb997" stroke="none" opacity="0.7"/>
+      <path d="M-42 0 L0 -4 L42 0 L0 4 Z" fill="#cdb997" stroke="none" opacity="0.4"/>
+      <text x="0" y="-50" text-anchor="middle" font-family="Georgia, serif"
+            font-size="10" letter-spacing="2" fill="#cdb997" stroke="none" opacity="0.7">N</text>
+    </g>
+
+    <!-- ===== "CONTINENT" SHAPES — abstract memory-map landmasses ===== -->
+    <g stroke-width="1.1">
+      <!-- Upper-left landmass (north) -->
+      <path d="M60 120
+               C 110 95, 180 90, 235 110
+               S 340 140, 400 130
+               C 455 122, 480 90, 520 110
+               L 540 160
+               C 510 180, 470 175, 430 195
+               S 340 230, 280 220
+               C 220 212, 180 245, 130 230
+               S 60 200, 50 170 Z"/>
+
+      <!-- Inner ridge / mountain hatch -->
+      <g stroke-width="0.5" opacity="0.5">
+        <path d="M150 150 q20 -10 40 0 t40 0 t40 0"/>
+        <path d="M180 175 q20 -8 40 0 t40 0"/>
+        <path d="M260 200 q15 -6 30 0 t30 0"/>
+      </g>
+
+      <!-- Eastern landmass -->
+      <path d="M720 90
+               C 780 80, 860 100, 920 95
+               S 1050 130, 1100 120
+               L 1110 175
+               C 1070 200, 1010 195, 970 215
+               S 880 245, 820 240
+               C 760 235, 720 215, 700 185
+               S 690 130, 720 90 Z"/>
+
+      <g stroke-width="0.5" opacity="0.5">
+        <path d="M780 130 q20 -8 40 0 t40 0 t40 0"/>
+        <path d="M820 160 q20 -8 40 0 t40 0"/>
+      </g>
+
+      <!-- Southern landmass (long, sweeping) -->
+      <path d="M180 480
+               C 260 460, 360 470, 440 460
+               S 600 440, 700 460
+               C 800 480, 880 470, 960 490
+               S 1100 520, 1140 560
+               L 1100 620
+               C 1020 640, 920 625, 820 640
+               S 640 660, 540 645
+               C 440 630, 340 645, 240 625
+               S 130 590, 140 540
+               C 145 510, 160 490, 180 480 Z"/>
+
+      <g stroke-width="0.5" opacity="0.5">
+        <path d="M280 540 q25 -10 50 0 t50 0 t50 0 t50 0"/>
+        <path d="M380 575 q25 -8 50 0 t50 0 t50 0"/>
+        <path d="M520 600 q25 -6 50 0 t50 0"/>
+      </g>
+
+      <!-- Small islands -->
+      <path d="M620 300 q20 -15 40 -5 t30 15 q-10 15 -30 12 t-40 -22 Z"/>
+      <path d="M450 330 q14 -10 28 -2 q10 12 -8 18 q-18 4 -20 -16 Z"/>
+      <path d="M880 360 q18 -8 30 2 q8 14 -10 18 q-22 2 -20 -20 Z"/>
+      <path d="M120 390 q12 -8 24 -2 q8 10 -6 16 q-16 4 -18 -14 Z"/>
+      <path d="M1020 420 q16 -10 28 0 q8 12 -8 18 q-22 4 -20 -18 Z"/>
+      <path d="M340 720 q20 -10 36 0 q8 14 -12 18 q-26 4 -24 -18 Z"/>
+    </g>
+
+    <!-- ===== SHIPPING / TRADE ROUTES (dashed arcs) ===== -->
+    <g stroke-width="0.55" stroke-dasharray="3 5" opacity="0.55">
+      <path d="M250 180 Q 500 60 820 170"/>
+      <path d="M300 220 Q 600 380 900 230"/>
+      <path d="M180 540 Q 500 420 850 540"/>
+      <path d="M540 645 Q 720 540 920 600"/>
+    </g>
+
+    <!-- ===== WAYPOINT MARKERS ===== -->
+    <g opacity="0.7">
+      <circle cx="250" cy="180" r="2.5" fill="#cdb997" stroke="none"/>
+      <circle cx="820" cy="170" r="2.5" fill="#cdb997" stroke="none"/>
+      <circle cx="300" cy="220" r="2"   fill="#cdb997" stroke="none"/>
+      <circle cx="900" cy="230" r="2"   fill="#cdb997" stroke="none"/>
+      <circle cx="180" cy="540" r="2.5" fill="#cdb997" stroke="none"/>
+      <circle cx="850" cy="540" r="2.5" fill="#cdb997" stroke="none"/>
+      <circle cx="540" cy="645" r="2"   fill="#cdb997" stroke="none"/>
+      <circle cx="920" cy="600" r="2"   fill="#cdb997" stroke="none"/>
+    </g>
+
+    <!-- ===== ENGRAVED TYPOGRAPHY (sparse, archival) ===== -->
+    <g fill="#cdb997" stroke="none" font-family="Georgia, serif" opacity="0.45">
+      <text x="270" y="105"  font-size="9"  letter-spacing="6" font-style="italic">M A R E   B O R E A L I S</text>
+      <text x="780" y="78"   font-size="9"  letter-spacing="6" font-style="italic">T E R R A   I N C O G N I T A</text>
+      <text x="500" y="455"  font-size="10" letter-spacing="8">M E M O R I A</text>
+      <text x="600" y="390"  font-size="7"  letter-spacing="3" opacity="0.7">CIRCA · MMXXIV</text>
+      <text x="120" y="765"  font-size="6"  letter-spacing="4" opacity="0.6">SCALE — DRAWN FROM MEMORY</text>
+      <text x="970" y="765"  font-size="6"  letter-spacing="4" opacity="0.6" text-anchor="end">PLATE  I</text>
+    </g>
+  </g>
+</svg>

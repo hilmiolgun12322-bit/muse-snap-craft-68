@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 35% 4%;
+    --foreground: 30 25% 88%;
+
+    --card: 230 30% 6%;
+    --card-foreground: 30 25% 88%;
+
+    --popover: 230 30% 6%;
+    --popover-foreground: 30 25% 88%;
+
+    --primary: 30 25% 88%;
+    --primary-foreground: 230 35% 4%;
+
+    --secondary: 230 25% 10%;
+    --secondary-foreground: 30 25% 88%;
+
+    --muted: 230 20% 14%;
+    --muted-foreground: 30 15% 60%;
+
+    --accent: 350 65% 45%;
+    --accent-foreground: 30 25% 95%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 30 25% 98%;
+
+    --border: 230 25% 18%;
+    --input: 230 25% 14%;
+    --ring: 30 25% 70%;
+
+    --radius: 0.25rem;
+
+    /* Custom design tokens */
+    --aurora-blue: 220 60% 25%;
+    --aurora-purple: 280 40% 20%;
+    --aurora-magenta: 320 50% 22%;
+    --aurora-teal: 175 50% 18%;
+
+    --gradient-aurora: radial-gradient(ellipse at 15% 30%, hsl(var(--aurora-blue) / 0.55), transparent 50%),
+                       radial-gradient(ellipse at 85% 25%, hsl(var(--aurora-magenta) / 0.45), transparent 55%),
+                       radial-gradient(ellipse at 70% 80%, hsl(var(--aurora-teal) / 0.35), transparent 50%),
+                       radial-gradient(ellipse at 25% 90%, hsl(var(--aurora-purple) / 0.5), transparent 55%);
+
+    --gradient-fade: linear-gradient(180deg, transparent, hsl(var(--background)));
+    --shadow-elegant: 0 25px 60px -20px hsl(0 0% 0% / 0.6);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    --font-nav: 'Cormorant Garamond', serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-weight: 400;
+    /* Solid base; flowing aurora + map live in fixed background layers below */
+    position: relative;
+  }
+
+  /* Layer 1 — slowly drifting aurora (replaces the old fixed gradient) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -25%;
+    z-index: -2;
+    pointer-events: none;
+    background-image: var(--gradient-aurora);
+    background-size: 180% 180%;
+    background-repeat: no-repeat;
+    /* Pre-blurred via large radial gradients; skip the expensive runtime blur filter */
+    opacity: 0.9;
+    animation: aurora-drift 60s ease-in-out infinite alternate;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Layer 2 — hand-drawn map etching, gently parallaxing over the aurora */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: -10%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.16;
+    background-image: url("/map-bg.svg");
+    background-repeat: repeat;
+    background-size: 1200px auto;
+    animation: map-drift 180s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+    /* Vignette so the map fades into the page edges */
+    -webkit-mask-image: radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 35%, hsl(0 0% 0% / 0) 85%);
+            mask-image: radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 35%, hsl(0 0% 0% / 0) 85%);
+  }
+
+  @keyframes aurora-drift {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    50%  { transform: translate3d(0, -1%, 0) scale(1.03); }
+    100% { transform: translate3d(0, 1%, 0) scale(1.01); }
+  }
+
+  @keyframes map-drift {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-200px, 100px, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before, body::after { animation: none; }
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative text-foreground/80 hover:text-foreground transition-colors text-base tracking-wide;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-300;
+  }
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .eyebrow {
+    @apply text-xs tracking-[0.4em] uppercase text-muted-foreground font-sans;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+  }
+
+  .artwork-frame {
+    @apply relative overflow-hidden border border-border/40 bg-black;
+    box-shadow: var(--shadow-elegant);
+    transition: var(--transition-smooth);
+  }
+  .artwork-frame:hover {
+    @apply border-border;
+    transform: translateY(-4px);
+  }
+  .artwork-frame img {
+    transition: var(--transition-smooth);
+  }
+  .artwork-frame:hover img {
+    transform: scale(1.04);
+  }
+}
