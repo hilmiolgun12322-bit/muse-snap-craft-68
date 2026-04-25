@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Mail, Youtube } from "lucide-react";
+import { Mail, Youtube, Instagram } from "lucide-react";
 import { toast } from "sonner";
 import artwork1 from "@/assets/artwork-1.jpg";
 import artwork2 from "@/assets/artwork-2.jpg";
@@ -41,33 +41,25 @@ const DiscordIcon = ({ className }: { className?: string }) => (
 );
 
 const Index = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [website, setWebsite] = useState(""); // honeypot — must stay empty
-  const [formLoadedAt] = useState(() => Date.now());
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) {
+    if (!form.name || !form.email || !form.subject || !form.message) {
       toast.error("Please fill in all fields");
       return;
     }
-    setSubmitting(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("send-contact-email", {
-        body: { ...form, website, elapsedMs: Date.now() - formLoadedAt },
-      });
-      if (error || !data?.success) {
-        throw new Error(error?.message ?? data?.error ?? "Failed to send");
-      }
-      toast.success("Message sent. Thank you for reaching out.");
-      setForm({ name: "", email: "", message: "" });
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Something went wrong";
-      toast.error(msg);
-    } finally {
-      setSubmitting(false);
-    }
+
+    // Check honeypot
+    if (website !== "") return;
+
+    const bodyText = `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`;
+    const mailtoLink = `mailto:hilmi.olgun@hotmail.com?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(bodyText)}`;
+    
+    window.location.href = mailtoLink;
+    toast.success("Opening your email app...");
   };
 
   return (
@@ -278,6 +270,13 @@ const Index = () => {
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="w-full bg-input/50 border border-border px-5 py-4 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-foreground/60 transition-colors"
               />
+              <input
+                type="text"
+                placeholder="Subject"
+                value={form.subject}
+                onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                className="w-full bg-input/50 border border-border px-5 py-4 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-foreground/60 transition-colors"
+              />
               <textarea
                 placeholder="Your Message"
                 rows={6}
@@ -303,6 +302,7 @@ const Index = () => {
         <div className="container flex flex-col items-center gap-6">
           <div className="flex items-center gap-8 text-foreground/60">
             <a href="https://www.youtube.com/@HilmiOlgun05" target="_blank" rel="noreferrer" aria-label="YouTube" className="hover:text-foreground transition-colors"><Youtube className="w-5 h-5" /></a>
+            <a href="https://instagram.com/hilmiolgun05" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:text-foreground transition-colors"><Instagram className="w-5 h-5" /></a>
             <a href="https://www.tiktok.com/@hilmi_olgun" target="_blank" rel="noreferrer" aria-label="TikTok" className="hover:text-foreground transition-colors"><TikTokIcon className="w-5 h-5" /></a>
             <a href="https://discord.gg/psXQtSyXR6" target="_blank" rel="noreferrer" aria-label="Discord" className="hover:text-foreground transition-colors"><DiscordIcon className="w-5 h-5" /></a>
           </div>
